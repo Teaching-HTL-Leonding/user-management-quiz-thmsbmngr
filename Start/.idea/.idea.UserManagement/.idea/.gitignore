@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/contentModel.xml
+/.idea.UserManagement.iml
+# Datasource local storage ignored files
+/../../../../../../../../../../../:\Users\Bladonis\Documents\htl\proo\user-management-quiz-thmsbmngr\Start\.idea\.idea.UserManagement\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

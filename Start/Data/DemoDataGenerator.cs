@@ -76,6 +76,9 @@ namespace UserManagement.Data
                 Name = "Clox",
                 Users = new List<User>()
             });
+
+            gachi.ChildGroups = new List<Group>(new Group[] {clock});
+            yep.ParentGroup = gachi;
             #endregion
 
             await dc.SaveChangesAsync();

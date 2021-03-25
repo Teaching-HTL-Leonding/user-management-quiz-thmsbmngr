@@ -1414,7 +1414,7 @@ true posixrules
       <ObjectId>13395</ObjectId>
       <Comment>default administrative connection database</Comment>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>511</IntrospectionStateNumber>
+      <IntrospectionStateNumber>517</IntrospectionStateNumber>
       <Current>1</Current>
       <Relations>sequence|table|16399|16401|1
 sequence|table|16389|16391|1
@@ -1489,7 +1489,7 @@ UC/10
 </Acl>
       <StateNumber>287</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>512</IntrospectionStateNumber>
+      <IntrospectionStateNumber>518</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="17" parent="2" name="plpgsql">
@@ -1620,7 +1620,7 @@ UC/10
     <table id="34" parent="16" name="Groups">
       <ObjectId>16412</ObjectId>
       <Owner>postgres</Owner>
-      <StateNumber>510</StateNumber>
+      <StateNumber>516</StateNumber>
     </table>
     <table id="35" parent="16" name="Users">
       <ObjectId>16401</ObjectId>
@@ -1747,7 +1747,13 @@ UsersId</ColNames>
       <StateNumber>510</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="51" parent="34" name="PK_Groups">
+    <column id="51" parent="34" name="ParentGroupId">
+      <Position>3</Position>
+      <DataType>integer|0s</DataType>
+      <StateNumber>516</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="52" parent="34" name="PK_Groups">
       <ObjectId>16415</ObjectId>
       <StateNumber>510</StateNumber>
       <ColNames>Id</ColNames>
@@ -1757,14 +1763,33 @@ UsersId</ColNames>
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <key id="52" parent="34" name="PK_Groups">
+    <index id="53" parent="34" name="IX_Groups_ParentGroupId">
+      <ObjectId>16433</ObjectId>
+      <StateNumber>516</StateNumber>
+      <ColNames>ParentGroupId</ColNames>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+    </index>
+    <key id="54" parent="34" name="PK_Groups">
       <ObjectId>16416</ObjectId>
       <StateNumber>510</StateNumber>
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_Groups</UnderlyingIndexName>
     </key>
-    <column id="53" parent="35" name="Id">
+    <foreign-key id="55" parent="34" name="FK_Groups_Groups_ParentGroupId">
+      <ObjectId>16434</ObjectId>
+      <StateNumber>516</StateNumber>
+      <ColNames>ParentGroupId</ColNames>
+      <RefTableId>16412</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>Groups</RefTableName>
+      <RefKeyName>PK_Groups</RefKeyName>
+      <RefColNames>Id</RefColNames>
+      <OnDelete>restrict</OnDelete>
+    </foreign-key>
+    <column id="56" parent="35" name="Id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1772,33 +1797,33 @@ UsersId</ColNames>
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="54" parent="35" name="NameIdentifier">
+    <column id="57" parent="35" name="NameIdentifier">
       <Position>2</Position>
       <DataType>varchar(128)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>507</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="55" parent="35" name="Email">
+    <column id="58" parent="35" name="Email">
       <Position>3</Position>
       <DataType>varchar(256)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>507</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="56" parent="35" name="FirstName">
+    <column id="59" parent="35" name="FirstName">
       <Position>4</Position>
       <DataType>varchar(100)|0s</DataType>
       <StateNumber>507</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="57" parent="35" name="LastName">
+    <column id="60" parent="35" name="LastName">
       <Position>5</Position>
       <DataType>varchar(100)|0s</DataType>
       <StateNumber>507</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="58" parent="35" name="PK_Users">
+    <index id="61" parent="35" name="PK_Users">
       <ObjectId>16407</ObjectId>
       <StateNumber>507</StateNumber>
       <ColNames>Id</ColNames>
@@ -1808,7 +1833,7 @@ UsersId</ColNames>
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <index id="59" parent="35" name="IX_Users_NameIdentifier">
+    <index id="62" parent="35" name="IX_Users_NameIdentifier">
       <ObjectId>16409</ObjectId>
       <StateNumber>507</StateNumber>
       <ColNames>NameIdentifier</ColNames>
@@ -1818,28 +1843,28 @@ UsersId</ColNames>
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="60" parent="35" name="PK_Users">
+    <key id="63" parent="35" name="PK_Users">
       <ObjectId>16408</ObjectId>
       <StateNumber>507</StateNumber>
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_Users</UnderlyingIndexName>
     </key>
-    <column id="61" parent="36" name="MigrationId">
+    <column id="64" parent="36" name="MigrationId">
       <Position>1</Position>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>488</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="62" parent="36" name="ProductVersion">
+    <column id="65" parent="36" name="ProductVersion">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>488</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="63" parent="36" name="PK___EFMigrationsHistory">
+    <index id="66" parent="36" name="PK___EFMigrationsHistory">
       <ObjectId>16387</ObjectId>
       <StateNumber>488</StateNumber>
       <ColNames>MigrationId</ColNames>
@@ -1850,7 +1875,7 @@ UsersId</ColNames>
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="64" parent="36" name="PK___EFMigrationsHistory">
+    <key id="67" parent="36" name="PK___EFMigrationsHistory">
       <ObjectId>16388</ObjectId>
       <StateNumber>488</StateNumber>
       <ColNames>MigrationId</ColNames>

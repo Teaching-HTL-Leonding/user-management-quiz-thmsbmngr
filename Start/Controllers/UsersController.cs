@@ -37,9 +37,18 @@ namespace UserManagement.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<UserResult>> GetAll()
+        public async Task<IEnumerable<UserResult>> GetAll([FromQuery] string? filter)
         {
-            return await _context.Users
+            IQueryable<User> users = _context.Users;
+
+            if (filter != null)
+            {
+                users = users.Where(u => u.Email.Contains(filter)
+                                 || u.FirstName != null && u.FirstName.Contains(filter)
+                                 || u.LastName != null && u.LastName.Contains(filter));
+            }
+            
+            return await users
                 .Select(u => new UserResult(u.Id, u.NameIdentifier, u.Email, u.FirstName, u.LastName))
                 .ToListAsync();
         }

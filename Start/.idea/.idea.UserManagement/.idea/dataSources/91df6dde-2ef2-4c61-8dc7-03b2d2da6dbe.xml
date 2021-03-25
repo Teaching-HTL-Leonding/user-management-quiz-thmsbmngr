@@ -1414,9 +1414,11 @@ true posixrules
       <ObjectId>13395</ObjectId>
       <Comment>default administrative connection database</Comment>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>505</IntrospectionStateNumber>
+      <IntrospectionStateNumber>511</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|16389|16391|1
+      <Relations>sequence|table|16399|16401|1
+sequence|table|16389|16391|1
+sequence|table|16410|16412|1
 </Relations>
     </database>
     <role id="3" parent="1" name="pg_execute_server_program">
@@ -1487,7 +1489,7 @@ UC/10
 </Acl>
       <StateNumber>287</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionStateNumber>506</IntrospectionStateNumber>
+      <IntrospectionStateNumber>512</IntrospectionStateNumber>
       <Current>1</Current>
     </schema>
     <extension id="17" parent="2" name="plpgsql">
@@ -1593,17 +1595,44 @@ UC/10
       <StateNumber>500</StateNumber>
       <DataType>integer|0s</DataType>
     </sequence>
-    <table id="30" parent="16" name="Friends">
+    <sequence id="30" parent="16" name="Groups_Id_seq">
+      <ObjectId>16410</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>510</StateNumber>
+      <DataType>integer|0s</DataType>
+    </sequence>
+    <sequence id="31" parent="16" name="Users_Id_seq">
+      <ObjectId>16399</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>507</StateNumber>
+      <DataType>integer|0s</DataType>
+    </sequence>
+    <table id="32" parent="16" name="Friends">
       <ObjectId>16391</ObjectId>
       <Owner>postgres</Owner>
       <StateNumber>500</StateNumber>
     </table>
-    <table id="31" parent="16" name="__EFMigrationsHistory">
+    <table id="33" parent="16" name="GroupUser">
+      <ObjectId>16417</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>510</StateNumber>
+    </table>
+    <table id="34" parent="16" name="Groups">
+      <ObjectId>16412</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>510</StateNumber>
+    </table>
+    <table id="35" parent="16" name="Users">
+      <ObjectId>16401</ObjectId>
+      <Owner>postgres</Owner>
+      <StateNumber>510</StateNumber>
+    </table>
+    <table id="36" parent="16" name="__EFMigrationsHistory">
       <ObjectId>16384</ObjectId>
       <Owner>postgres</Owner>
       <StateNumber>488</StateNumber>
     </table>
-    <column id="32" parent="30" name="Id">
+    <column id="37" parent="32" name="Id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
@@ -1611,19 +1640,19 @@ UC/10
       <TypeId>23</TypeId>
       <IdentityKind>by-default</IdentityKind>
     </column>
-    <column id="33" parent="30" name="Me">
+    <column id="38" parent="32" name="Me">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <StateNumber>500</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="34" parent="30" name="Other">
+    <column id="39" parent="32" name="Other">
       <Position>3</Position>
       <DataType>text|0s</DataType>
       <StateNumber>500</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <index id="35" parent="30" name="PK_Friends">
+    <index id="40" parent="32" name="PK_Friends">
       <ObjectId>16397</ObjectId>
       <StateNumber>500</StateNumber>
       <ColNames>Id</ColNames>
@@ -1633,28 +1662,184 @@ UC/10
       <CollationIds>0</CollationIds>
       <ClassIds>1978</ClassIds>
     </index>
-    <key id="36" parent="30" name="PK_Friends">
+    <key id="41" parent="32" name="PK_Friends">
       <ObjectId>16398</ObjectId>
       <StateNumber>500</StateNumber>
       <ColNames>Id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PK_Friends</UnderlyingIndexName>
     </key>
-    <column id="37" parent="31" name="MigrationId">
+    <column id="42" parent="33" name="GroupsId">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>510</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="43" parent="33" name="UsersId">
+      <Position>2</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>510</StateNumber>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="44" parent="33" name="PK_GroupUser">
+      <ObjectId>16420</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>GroupsId
+UsersId</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0,0</CollationIds>
+      <ClassIds>1978,1978</ClassIds>
+    </index>
+    <index id="45" parent="33" name="IX_GroupUser_UsersId">
+      <ObjectId>16432</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>UsersId</ColNames>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+    </index>
+    <key id="46" parent="33" name="PK_GroupUser">
+      <ObjectId>16421</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>GroupsId
+UsersId</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PK_GroupUser</UnderlyingIndexName>
+    </key>
+    <foreign-key id="47" parent="33" name="FK_GroupUser_Groups_GroupsId">
+      <ObjectId>16422</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>GroupsId</ColNames>
+      <RefTableId>16412</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>Groups</RefTableName>
+      <RefKeyName>PK_Groups</RefKeyName>
+      <RefColNames>Id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <foreign-key id="48" parent="33" name="FK_GroupUser_Users_UsersId">
+      <ObjectId>16427</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>UsersId</ColNames>
+      <RefTableId>16401</RefTableId>
+      <RefColPositions>1</RefColPositions>
+      <RefTableName>Users</RefTableName>
+      <RefKeyName>PK_Users</RefKeyName>
+      <RefColNames>Id</RefColNames>
+      <OnDelete>cascade</OnDelete>
+    </foreign-key>
+    <column id="49" parent="34" name="Id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>510</StateNumber>
+      <TypeId>23</TypeId>
+      <IdentityKind>by-default</IdentityKind>
+    </column>
+    <column id="50" parent="34" name="Name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>510</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="51" parent="34" name="PK_Groups">
+      <ObjectId>16415</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>Id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+    </index>
+    <key id="52" parent="34" name="PK_Groups">
+      <ObjectId>16416</ObjectId>
+      <StateNumber>510</StateNumber>
+      <ColNames>Id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PK_Groups</UnderlyingIndexName>
+    </key>
+    <column id="53" parent="35" name="Id">
+      <Position>1</Position>
+      <DataType>integer|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>507</StateNumber>
+      <TypeId>23</TypeId>
+      <IdentityKind>by-default</IdentityKind>
+    </column>
+    <column id="54" parent="35" name="NameIdentifier">
+      <Position>2</Position>
+      <DataType>varchar(128)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>507</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="55" parent="35" name="Email">
+      <Position>3</Position>
+      <DataType>varchar(256)|0s</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>507</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="56" parent="35" name="FirstName">
+      <Position>4</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <StateNumber>507</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="57" parent="35" name="LastName">
+      <Position>5</Position>
+      <DataType>varchar(100)|0s</DataType>
+      <StateNumber>507</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="58" parent="35" name="PK_Users">
+      <ObjectId>16407</ObjectId>
+      <StateNumber>507</StateNumber>
+      <ColNames>Id</ColNames>
+      <Unique>1</Unique>
+      <Primary>1</Primary>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>0</CollationIds>
+      <ClassIds>1978</ClassIds>
+    </index>
+    <index id="59" parent="35" name="IX_Users_NameIdentifier">
+      <ObjectId>16409</ObjectId>
+      <StateNumber>507</StateNumber>
+      <ColNames>NameIdentifier</ColNames>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+      <CollationIds>100</CollationIds>
+      <CollationNames>default</CollationNames>
+      <ClassIds>3126</ClassIds>
+    </index>
+    <key id="60" parent="35" name="PK_Users">
+      <ObjectId>16408</ObjectId>
+      <StateNumber>507</StateNumber>
+      <ColNames>Id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PK_Users</UnderlyingIndexName>
+    </key>
+    <column id="61" parent="36" name="MigrationId">
       <Position>1</Position>
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>488</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="38" parent="31" name="ProductVersion">
+    <column id="62" parent="36" name="ProductVersion">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>488</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="39" parent="31" name="PK___EFMigrationsHistory">
+    <index id="63" parent="36" name="PK___EFMigrationsHistory">
       <ObjectId>16387</ObjectId>
       <StateNumber>488</StateNumber>
       <ColNames>MigrationId</ColNames>
@@ -1665,7 +1850,7 @@ UC/10
       <CollationNames>default</CollationNames>
       <ClassIds>3126</ClassIds>
     </index>
-    <key id="40" parent="31" name="PK___EFMigrationsHistory">
+    <key id="64" parent="36" name="PK___EFMigrationsHistory">
       <ObjectId>16388</ObjectId>
       <StateNumber>488</StateNumber>
       <ColNames>MigrationId</ColNames>

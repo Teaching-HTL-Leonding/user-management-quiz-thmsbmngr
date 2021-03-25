@@ -40,7 +40,7 @@ namespace UserManagement.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetAll()
+        public async Task<ActionResult<IEnumerable<GroupResult>>> GetAll()
         {
             return Ok(await _context.Groups
                 .Select(g => new GroupResult(g.Id, g.Name))

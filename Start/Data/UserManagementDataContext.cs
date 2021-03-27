@@ -10,7 +10,8 @@ namespace UserManagement.Data
         }
 
         public DbSet<User> Users => Set<User>();
-
+        public DbSet<Group> Groups => Set<Group>();
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Add a unique index to name identifier column
